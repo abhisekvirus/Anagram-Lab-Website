@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Anagram Lab — explore, detect, and master anagrams.">
+  <title>Anagram Lab — Think in Letters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">A</span><span>Anagram<span class="brand-light">Lab</span></span></a>
+    <nav class="nav-links"><a href="#checker">Checker</a><a href="#arena">Practice arena</a><a href="#how">How it works</a></nav>
+    <button id="themeBtn" class="icon-btn" aria-label="Toggle dark mode" title="Toggle theme">☼</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> LETTERS ARE JUST BEGINNING</div>
+      <h1>Same letters.<br><span class="gradient-text">New perspective.</span></h1>
+      <p class="hero-copy">A word or phrase made by rearranging the letters of another. Find the pattern, test your instincts, and get better one puzzle at a time.</p>
+      <div class="hero-actions"><a class="btn btn-primary" href="#checker">Check an anagram <span>↗</span></a><a class="text-link" href="#arena">Jump into practice <span>↓</span></a></div>
+      <div class="hero-note"><span class="mini-avatars"><i>A</i><i>R</i><i>!</i></span> Built for curious minds · No sign-up needed</div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="floating-letter l-a">A</div><div class="floating-letter l-n">N</div><div class="floating-letter l-g">G</div><div class="floating-letter l-r">R</div><div class="floating-letter l-m">M</div><div class="art-core"><span>AN</span><small>↔</small><span>N A</span></div></div>
+    </section>
+
+    <section id="checker" class="section">
+      <div class="section-heading"><div><div class="eyebrow">01 / THE DETECTOR</div><h2>Put your words to the test.</h2></div><span class="section-caption">Instant · Character-by-character</span></div>
+      <div class="panel checker-panel">
+        <div class="input-grid">
+          <label class="field"><span>FIRST WORD OR PHRASE</span><input id="firstInput" placeholder="e.g. listen" autocomplete="off"><small>Type a word, name, or phrase</small></label>
+          <div class="swap-symbol">↔</div>
+          <label class="field"><span>SECOND WORD OR PHRASE</span><input id="secondInput" placeholder="e.g. silent" autocomplete="off"><small>Order doesn't matter. Counts do.</small></label>
+        </div>
+        <div class="checker-actions"><button id="checkBtn" class="btn btn-primary">Analyze strings <span>→</span></button><button id="exampleBtn" class="btn btn-secondary">Try an example</button><button id="clearBtn" class="btn btn-ghost">Clear</button></div>
+        <div id="checkResult" class="result-box empty"><div class="result-icon">✳</div><div><strong>Your result will appear here</strong><p>Enter two strings and analyze their character patterns.</p></div></div>
+        <div id="frequencyArea" class="frequency-area hidden"></div>
+      </div>
+    </section>
+
+    <section id="arena" class="section">
+      <div class="section-heading"><div><div class="eyebrow">02 / THE PRACTICE ARENA</div><h2>Train your anagram instincts.</h2></div><span class="section-caption">Fresh rounds · Progressive hints</span></div>
+      <div class="arena-grid">
+        <div class="panel arena-main">
+          <div class="arena-top"><span class="round-pill"><span class="pulse"></span> LIVE ROUND</span><label class="difficulty">DIFFICULTY <select id="difficulty"><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label></div>
+          <div class="round-meta"><span id="roundCount">ROUND 01</span><span id="roundTag" class="tag">WARM UP</span></div>
+          <h3>Are these anagrams?</h3>
+          <div class="puzzle-words"><div id="wordOne" class="puzzle-word">listen</div><div class="puzzle-arrow">↔</div><div id="wordTwo" class="puzzle-word">silent</div></div>
+          <div class="answer-actions"><button id="yesBtn" class="answer-btn"><span>✓</span> Yes, they are</button><button id="noBtn" class="answer-btn"><span>✕</span> No, they aren't</button></div>
+          <div id="practiceFeedback" class="practice-feedback" aria-live="polite">Choose an answer to lock in your guess.</div>
+          <div class="round-controls"><button id="hintBtn" class="btn btn-secondary">♧ Get a hint <span id="hintCount">0/3</span></button><button id="nextBtn" class="btn btn-primary">Next round <span>→</span></button></div>
+          <div id="hintBox" class="hint-box hidden"></div>
+        </div>
+        <aside class="panel stats-panel"><div class="eyebrow">YOUR SESSION</div><div class="stats-grid"><div class="stat"><span class="stat-icon">✦</span><strong id="scoreStat">0</strong><small>Points</small></div><div class="stat"><span class="stat-icon">◎</span><strong id="accuracyStat">—</strong><small>Accuracy</small></div><div class="stat"><span class="stat-icon">↗</span><strong id="playedStat">0</strong><small>Played</small></div></div><div class="progress-head"><span>SESSION ACCURACY</span><span id="progressText">0%</span></div><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div><div class="tip-card"><span>✧</span><div><strong>Pro tip</strong><p>Compare letter frequencies, not just the first and last letters. One repeated letter can change everything.</p></div></div><button id="resetStatsBtn" class="reset-link">Reset session stats</button></aside>
+      </div>
+    </section>
+
+    <section id="how" class="section how-section"><div class="section-heading"><div><div class="eyebrow">03 / UNDER THE HOOD</div><h2>Simple idea. Smart checking.</h2></div></div>
+      <div class="steps-grid"><article class="step-card"><span class="step-number">01</span><div class="step-icon">Aa</div><h3>Normalize</h3><p>Ignore case, spaces, and punctuation so the comparison focuses on letters and numbers.</p></article><article class="step-card"><span class="step-number">02</span><div class="step-icon">≋</div><h3>Count characters</h3><p>Build a frequency map for every character in each string.</p></article><article class="step-card"><span class="step-number">03</span><div class="step-icon">⇄</div><h3>Compare</h3><p>If every character has the same count in both strings, they're anagrams.</p></article></div>
+      <div class="complexity-strip"><span>Efficient by design</span><div><strong>O(n)</strong><small>Average time</small></div><div><strong>O(k)</strong><small>Extra space</small></div><span class="complexity-note">n = input length · k = unique characters</span></div>
+    </section>
+  </main>
+  <footer><a class="brand" href="#"><span class="brand-mark">A</span><span>Anagram<span class="brand-light">Lab</span></span></a><span>Made for people who love a good word puzzle.</span><a href="#top" class="back-top">Back to top ↑</a></footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
