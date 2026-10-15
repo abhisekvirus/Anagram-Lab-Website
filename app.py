@@ -106,3 +106,9 @@ def hint():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+#1.   .\.venv\Scripts\Activate.ps1
+#2.  python -m pip install -r requirements.txt
+#3.  python app.py
